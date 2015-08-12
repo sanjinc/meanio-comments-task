@@ -10,6 +10,17 @@ var mongoose = require('mongoose'),
 module.exports = function(Comments) {
 
     return {
-
+        /**
+         * Find comment by id
+         */
+        comment: function(req, res, next) {
+            var id = req.params.commentId;
+            Comment.findOne({_id:id}, function(err, comment) {
+                if (err) return next(err);
+                if (!comment) return next(new Error('Failed to load comment ' + id));
+                req.comment = comment;
+                next();
+            });
+        }
     };
 }
