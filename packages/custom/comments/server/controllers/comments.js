@@ -43,6 +43,20 @@ module.exports = function(Comments) {
                 }
                 res.json(comments);
             });
+        },
+        /**
+         * Create a comment
+         */
+        create: function(req, res) {
+            var comment = new Comment(req.body);
+            comment.save(function(err) {
+                if (err) {
+                    return res.status(500).json({
+                        error: 'Cannot save the comment'
+                    });
+                }
+                res.json(comment);
+            });
         }
     };
 }
