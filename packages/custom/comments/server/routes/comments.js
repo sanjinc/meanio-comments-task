@@ -4,24 +4,17 @@
 // The Package is past automatically as first parameter
 module.exports = function(Comments, app, auth, database) {
 
-  app.get('/api/comments/example/anyone', function(req, res, next) {
-    res.send('Anyone can access this');
-  });
+  var comments = require('../controllers/comments')(Comments);
 
-  app.get('/api/comments/example/auth', auth.requiresLogin, function(req, res, next) {
-    res.send('Only authenticated users can access this');
-  });
+  app.route('/api/comments')
+      .get(comments.all);
+  app.route('/api/comments/:commentId')
+      .get(comments.show)
+      .put(comments.update);
+  app.route('/api/comments/article/:articleId')
+      .get(comments.comments)
+      .post(comments.create);
 
-  app.get('/api/comments/example/admin', auth.requiresAdmin, function(req, res, next) {
-    res.send('Only users with Admin role can access this');
-  });
+  app.param('commentId', comments.comment);
 
-  app.get('/api/comments/example/render', function(req, res, next) {
-    Comments.render('index', {
-      package: 'comments'
-    }, function(err, html) {
-      //Rendering a view from the Package server/views
-      res.send(html);
-    });
-  });
 };
