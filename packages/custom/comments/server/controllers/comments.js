@@ -27,6 +27,22 @@ module.exports = function(Comments) {
          */
         show: function(req, res) {
             res.json(req.comment);
+        },
+        /**
+         * Find comments by article id
+         */
+        comments: function(req, res) {
+            var params = {
+                parent: req.params.articleId
+            };
+            Comment.find(params).sort('-created').exec(function(err, comments) {
+                if (err) {
+                    res.status(500).json({
+                        error: 'Cannot list the comment'
+                    });
+                }
+                res.json(comments);
+            });
         }
     };
 }
