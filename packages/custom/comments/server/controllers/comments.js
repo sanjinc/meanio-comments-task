@@ -72,6 +72,19 @@ module.exports = function(Comments) {
                 }
                 res.json(comment);
             });
+        },
+        /**
+         * List of comments
+         */
+        all: function(req, res) {
+            Comment.find(function(err, comments) {
+                if (err) {
+                    return res.status(500).json({
+                        error: 'Cannot list the comments'
+                    });
+                }
+                res.json(comments);
+            });
         }
     };
 }
