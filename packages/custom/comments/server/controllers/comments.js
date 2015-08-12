@@ -21,6 +21,12 @@ module.exports = function(Comments) {
                 req.comment = comment;
                 next();
             });
+        },
+        /**
+         * Show a comment
+         */
+        show: function(req, res) {
+            res.json(req.comment);
         }
     };
 }
