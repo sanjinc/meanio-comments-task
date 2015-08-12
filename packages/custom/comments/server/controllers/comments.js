@@ -57,6 +57,21 @@ module.exports = function(Comments) {
                 }
                 res.json(comment);
             });
+        },
+        /**
+         * Update a comment
+         */
+        update: function(req, res) {
+            var comment = req.comment;
+            comment = _.extend(comment, req.body);
+            comment.save(function(err) {
+                if (err) {
+                    return res.status(500).json({
+                        error: 'Cannot update the comment' + err
+                    });
+                }
+                res.json(comment);
+            });
         }
     };
 }
