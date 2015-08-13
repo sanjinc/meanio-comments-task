@@ -19,7 +19,10 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <ul ng-repeat="comment in comments">
+      <div ng-if="comments.length===0">
+        No comments yet!
+      </div>
+      <ul ng-repeat="comment in comments" ng-if="comments.length>0">
         <li>
           {{comment.body}}
           <i style="color:#aaa">by {{comment.user}}</i>
