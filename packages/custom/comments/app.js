@@ -17,12 +17,14 @@ Comments.register(function(app, auth, database) {
   Comments.routes(app, auth, database);
 
   //We are adding a link to the main menu for all authenticated users
+  /*
   Comments.menus.add({
     title: 'comments example page',
     link: 'comments example page',
     roles: ['authenticated'],
     menu: 'main'
   });
+  */
   
   Comments.aggregateAsset('css', 'comments.css');
 
