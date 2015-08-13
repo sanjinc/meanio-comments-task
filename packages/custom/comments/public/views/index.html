@@ -1,6 +1,23 @@
 <section data-ng-controller="CommentsController">
   <br>
   <div class="row">
+    <div class="col-md-6">
+      <form name="commentForm" class="form-horizontal" data-ng-submit="create(commentForm.$valid)" novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : submitted && commentForm.body.$invalid }">
+          <div class="col-xs-9">
+            <input name="body" type="text" class="form-control" data-ng-model="comment.body" id="comment" placeholder="Comment" required>
+            <div ng-show="submitted && commentForm.body.$invalid" class="help-block">
+              <p ng-show="commentForm.body.$error.required">Comment is required</p>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <button type="submit" class="btn btn-info">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-xs-12">
       <ul ng-repeat="comment in comments">
         <li>{{comment.body}} <i style="color:#aaa">by {{comment.user}}</i></li>
