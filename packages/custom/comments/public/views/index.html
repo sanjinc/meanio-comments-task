@@ -20,7 +20,11 @@
   <div class="row">
     <div class="col-xs-12">
       <ul ng-repeat="comment in comments">
-        <li>{{comment.body}} <i style="color:#aaa">by {{comment.user}}</i></li>
+        <li>
+          {{comment.body}}
+          <i style="color:#aaa">by {{comment.user}}</i>
+          <button class="btn btn-xs btn-default" ng-if="isAdmin && comment.pending" ng-click="approve(comment)">Approve</button>
+        </li>
       </ul>
     </div>
   </div>

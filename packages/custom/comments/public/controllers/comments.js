@@ -1,8 +1,8 @@
 'use strict';
 
 /* jshint -W098 */
-angular.module('mean.comments').controller('CommentsController', ['$scope', 'Global', 'Comments', 'MeanUser', '$stateParams',
-  function($scope, Global, Comments, MeanUser, $stateParams) {
+angular.module('mean.comments').controller('CommentsController', ['$scope', 'Global', 'Comments', 'MeanUser', '$stateParams', 'Approve',
+  function($scope, Global, Comments, MeanUser, $stateParams, Approve) {
     $scope.global = Global;
     $scope.package = {
       name: 'comments'
@@ -27,6 +27,14 @@ angular.module('mean.comments').controller('CommentsController', ['$scope', 'Glo
       } else {
         $scope.submitted = true;
       }
+    };
+    $scope.approve = function(comment) {
+      var approve = new Approve({
+        commentId: comment._id,
+        pending: false
+      });
+      approve.$update();
+      comment.pending = false;
     };
     $scope.findComments = function(article) {
       $scope.comments = [];

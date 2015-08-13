@@ -6,4 +6,14 @@ angular.module('mean.comments').factory('Comments', [
       articleId: '@articleId'
     });
   }
+]).factory('Approve', ['$resource',
+  function($resource) {
+    return $resource('api/comments/:commentId', {
+      commentId: '@commentId'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  }
 ]);
